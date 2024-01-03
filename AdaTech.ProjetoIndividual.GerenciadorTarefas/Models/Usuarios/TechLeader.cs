@@ -8,7 +8,7 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios
 {
     internal sealed class TechLeader: Usuario
     {
-        internal TechLeader(string nome, string email, string senha, string cpf, string dataAdmissao, string dataNascimento, string genero, string dataDemissao = null) 
+        internal TechLeader(string nome, string email, string senha, string cpf, DateTime dataAdmissao, DateTime dataNascimento, string genero, DateTime? dataDemissao = null) 
             : base(nome, email, senha, cpf, dataAdmissao, dataNascimento, genero, dataDemissao)
         {
         }

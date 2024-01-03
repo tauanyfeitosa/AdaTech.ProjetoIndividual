@@ -1,4 +1,5 @@
-﻿using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios;
+﻿using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusiness;
+using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +48,7 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business
             _observacoes = observacoes;
             _usuario = usuario;
             _tarefasRelacionada = tarefasRelacionada;
+            _id = GerarId();
         }
 
         internal void EditarTarefa(string titulo = null, string descricao = null, DateTime? dataInicio = null, PrioridadeTarefa? prioridade = null, string observacoes = null, Usuario usuario = null, DateTime? fim = null, List<Tarefas> tarefasRelacionada = null, StatusTarefa? status = null)
@@ -130,6 +132,17 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business
             {
                 _tarefasRelacionada.Remove(tarefa);
             }
+        }
+
+        internal int GerarId()
+        {
+            int id;
+            do
+            {
+                id = new Random().Next(1, 1000);
+            } while (TarefaData.VerificarId(_id));
+
+            return id;
         }
 
     }
