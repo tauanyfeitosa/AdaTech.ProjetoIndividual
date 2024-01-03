@@ -88,7 +88,7 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
             var observacoes = dados[7];
             var dataConclusao = DateTime.Parse(dados[8]);
             var dataCancelamento = DateTime.Parse(dados[9]);
-            Usuario usuario = UsuarioData.BuscarPorCpf(dados[10]);
+            Usuario usuario = UsuarioData.SelecionarUsuario(dados[10]);
             List<int> idTarefas = dados[11].Split(',').Select(x => int.Parse(x)).ToList();
 
             return AdicionarTarefa(titulo, descricao, dataInicio, prioridade, observacoes, usuario, dataFimPrevista, idTarefas);

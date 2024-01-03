@@ -1,1 +1,20 @@
-﻿
+﻿111222,Juliana Oliveira,11122233344,juliana.oliveira@gmail.com,True
+333444,Ricardo Santos,55566677788,ricardo.santos@gmail.com,True
+555666,Patrícia Lima,99900011122,patricia.lima@gmail.com,True
+777888,Felipe Silva,33344455566,felipe.silva@gmail.com,True
+999000,André Oliveira,77788899900,andre.oliveira@gmail.com,True
+111222,Larissa Santos,11111122222,larissa.santos@gmail.com,True
+333444,Gabriel Lima,44444455555,gabriel.lima@gmail.com,True
+555666,Amanda Silva,77777788888,amanda.silva@gmail.com,True
+777888,Carlos Oliveira,22233344455,carlos.oliveira@gmail.com,True
+999000,Ana Pereira,88899900011,ana.pereira@gmail.com,True
+111222,Marcos Santos,55555566666,marcos.santos@gmail.com,True
+333444,Isabela Lima,99999900000,isabela.lima@gmail.com,True
+555666,Rodrigo Silva,11111112222,rodrigo.silva@gmail.com,True
+777888,Juliana Oliveira,33333334444,juliana.oliveira@gmail.com,True
+999000,Raquel Santos,55555556666,raquel.santos@gmail.com,True
+111222,Lucas Lima,77777778888,lucas.lima@gmail.com,True
+333444,Bianca Silva,99999991111,bianca.silva@gmail.com,True
+555666,Fernando Oliveira,11111113333,fernando.oliveira@gmail.com,True
+777888,Sofia Santos,44444445555,sofia.santos@gmail.com,True
+999000,Rafael Lima,66666667777,rafael.lima@gmail.com,True
