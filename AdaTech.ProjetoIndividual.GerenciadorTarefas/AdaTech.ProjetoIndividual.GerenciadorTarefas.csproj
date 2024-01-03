@@ -52,6 +52,13 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Business\PrioridadeTarefa.cs" />
+    <Compile Include="Models\Business\StatusTarefa.cs" />
+    <Compile Include="Models\Business\Tarefas.cs" />
+    <Compile Include="Models\Usuarios\Administrador.cs" />
+    <Compile Include="Models\Usuarios\Desenvolvedor.cs" />
+    <Compile Include="Models\Usuarios\TechLeader.cs" />
+    <Compile Include="Models\Usuarios\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -78,7 +85,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
