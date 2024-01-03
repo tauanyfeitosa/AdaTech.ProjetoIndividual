@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios
 {
     internal class Administrador: Usuario
     {
-        internal Administrador(string nome, string email, string senha, string cpf, DateTime dataAdmissao, DateTime dataNascimento, string genero, DateTime? dataDemissao = null) 
-            : base(nome, email, senha, cpf, dataAdmissao, dataNascimento, genero, dataDemissao)
+        internal Administrador(string senha, string nome, string cpf, string email, bool ativo = true) 
+            : base(nome, email, senha, cpf, ativo)
         {
+
         }
 
         internal void CadastrarDesenvolvedor()
