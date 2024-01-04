@@ -11,7 +11,7 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Controllers
 {
     internal class TelaLoginController
     {
-        private TelaLogin _telaLogin;
+        private readonly TelaLogin _telaLogin;
 
         internal TelaLoginController(TelaLogin telaLogin)
         {

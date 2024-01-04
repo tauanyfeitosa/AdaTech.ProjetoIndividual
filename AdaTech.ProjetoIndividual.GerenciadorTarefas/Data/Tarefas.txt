@@ -1,1 +1,8 @@
-﻿
+﻿DesenvolverPainelAdmin,Criar interface do administrador,2022-03-15,2022-04-01,Alta,12345678901,1,EmAndamento
+CorrigirBugs,Corrigir bugs críticos na aplicação,2022-04-05,2022-04-10,Alta,33344455566,2,Pendente,null,1
+TestarNovoRecurso,Realizar testes no recurso de notificações,2022-04-02,2022-04-07,Media,11122233344,3,Concluida,2022-04-07,1/2
+OtimizarDesempenho,Aprimorar a eficiência do código,2022-04-12,2022-04-20,Alta,55566677788,4,Pendente
+ImplementarNovoResource,Adicionar suporte a recursos multilíngues,2022-04-15,2022-04-30,Media,33344455566,5,EmAndamento,null,3/4
+RevisaoCodigo,Conduzir revisão de código,2022-04-25,2022-04-28,Baixa,77788899900,6,Concluida,2022-04-28,1
+PlanejarProximoSprint,Preparar roadmap para a próxima sprint,2022-05-01,2022-05-05,Media,77788899900,7,Pendente,,6
+AtualizarDocumentacao,Atualizar documentação do projeto,2022-05-10,2022-05-15,Baixa,33344455566,8,Pendente,null,5

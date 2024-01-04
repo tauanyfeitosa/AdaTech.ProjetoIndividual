@@ -1,4 +1,5 @@
 ﻿using AdaTech.ProjetoIndividual.GerenciadorTarefas.Controllers;
+using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusiness;
 using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser;
 using System;
 using System.Windows.Forms;
@@ -7,7 +8,8 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views
 {
     internal partial class TelaLogin : Form
     {
-        private TelaLoginController _telaLoginController;
+        private readonly TelaLoginController _telaLoginController;
+
 
         internal TelaLogin()
         {
@@ -17,12 +19,12 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views
 
         private void OnClickEntrar(object sender, EventArgs e)
         {
-            string usuarioDigitado = txtUsuario.Text;
-            string senhaDigitada = txtSenha.Text;
 
             if (_telaLoginController.RealizarLogin())
             {
                 this.Hide();
+                HomePage homePage = new HomePage(UsuarioData.SelecionarUsuario(TxtUsuario.Text));
+                homePage.ShowDialog();
             }
         }
     }

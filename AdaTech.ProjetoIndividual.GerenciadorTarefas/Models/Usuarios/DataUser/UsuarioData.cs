@@ -5,33 +5,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusiness;
+using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.ProjetosBusiness;
 
 
 namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser
 {
     internal static class UsuarioData
     {
-        private static List<Desenvolvedor> _desenvolvedores = new List<Desenvolvedor>
-        {
-            new Desenvolvedor("123", "João", "12345678910", "login1"),
-            new Desenvolvedor("123", "Maria", "12345678911", "login2"),
-        };
-        private static List<TechLeader> _techLeaders = new List<TechLeader> 
-        {
-            new TechLeader("123", "José", "12345678912", "login3"),
-            new TechLeader("123", "Ana", "12345678913", "login4"),
-        };
-        private static List<Administrador> _administrador = new List<Administrador> 
-        {
-            new Administrador("123", "Administrador", "12345678914", "login5"),
-        };
+        private static List<Desenvolvedor> _desenvolvedores = new List<Desenvolvedor>();
+        private static List<TechLeader> _techLeaders = new List<TechLeader>();
+        private static List<Administrador> _administrador = new List<Administrador>();
 
         private static readonly string _DIRECTORY_PATH = AppDomain.CurrentDomain.BaseDirectory.Replace("\\bin\\Debug", "") + "Data";
         private static readonly string _FILE_PATH_DESENVOLVEDOR = Path.Combine(_DIRECTORY_PATH, "Desenvolvedor.txt");
         private static readonly string _FILE_PATH_TECH_LEADER = Path.Combine(_DIRECTORY_PATH, "TechLeader.txt");
         private static readonly string _FILE_PATH_ADMINISTRADOR = Path.Combine(_DIRECTORY_PATH, "Administrador.txt");
 
-        static UsuarioData()
+        public static List<Desenvolvedor> Desenvolvedores { get => _desenvolvedores; set => _desenvolvedores = value; }
+        public static List<TechLeader> TechLeaders { get => _techLeaders; set => _techLeaders = value; }
+        public static List<Administrador> Administrador { get => _administrador; set => _administrador = value; }
+
+        internal static void CarregarDados()
         {
             _desenvolvedores = LerDevTxt();
             _techLeaders = LerTlTxt();
@@ -131,6 +126,29 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser
             }
 
             return usuario;
+        }
+
+        internal static TechLeader SelecionarTechLeader (string cpf)
+        {
+            TechLeader techLeader = null;
+
+            techLeader = _techLeaders.FirstOrDefault(x => x.Cpf == cpf);
+            if (techLeader != null)
+            {
+                return techLeader;
+            }
+
+            return techLeader;
+        }
+
+        internal static void AdicionarTechLeader (string senha, string nome, string cpf, string email, Projetos projeto, bool ativo = true)
+        {
+            TechLeader techLeader = new TechLeader(senha, nome, cpf, email, projeto.NomeProjeto, ativo);
+            _techLeaders.Add(techLeader);
+
+            List<TechLeader> list = new List<TechLeader>();
+            list.Add(techLeader);
+            SalvarTechLeaderTxt(list);
         }
 
         internal static List<Usuario> LerUsuariosTxt(string _FILE_PATH, int tipoUsuario)
@@ -263,14 +281,15 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser
             string nomeCompleto = objetoString[1];
             string cpf = objetoString[2];
             string email = objetoString[3];
-            if (objetoString.Length > 4)
+            string projeto = objetoString[4];
+            if (objetoString.Length > 5)
             {
-                bool ativo = bool.Parse(objetoString[4]);
+                bool ativo = bool.Parse(objetoString[5]);
 
-                return new Tuple<List<string>, bool>(new List<string> { senha, nomeCompleto, cpf, email }, ativo);
+                return new Tuple<List<string>, bool>(new List<string> { senha, nomeCompleto, cpf, email, projeto }, ativo);
             }
 
-            return new Tuple<List<string>, bool>(new List<string> { senha, nomeCompleto, cpf, email }, true);
+            return new Tuple<List<string>, bool>(new List<string> { senha, nomeCompleto, cpf, email, projeto }, true);
         }
 
         internal static Desenvolvedor ConverterLinhaParaDev(string linha)
@@ -279,7 +298,8 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser
                                     ConverterLinhaParaUsuario(linha).Item1[1],
                                         ConverterLinhaParaUsuario(linha).Item1[2],
                                             ConverterLinhaParaUsuario(linha).Item1[3],
-                                                ConverterLinhaParaUsuario(linha).Item2);
+                                                ConverterLinhaParaUsuario(linha).Item1[4],
+                                                    ConverterLinhaParaUsuario(linha).Item2);
         }
 
         internal static Administrador ConverterLinhaParaAdm(string linha)
@@ -297,7 +317,8 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser
                                             ConverterLinhaParaUsuario(linha).Item1[1],
                                                 ConverterLinhaParaUsuario(linha).Item1[2],
                                                     ConverterLinhaParaUsuario(linha).Item1[3],
-                                                        ConverterLinhaParaUsuario(linha).Item2);
+                                                        ConverterLinhaParaUsuario(linha).Item1[4],
+                                                            ConverterLinhaParaUsuario(linha).Item2);
         }
 
         internal static void SalvarUsuariosTxt<T>(List<T> usuarios, string _FILE_PATH)
@@ -387,6 +408,10 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser
 
         internal static string ConverterUsuarioParaLinha(Usuario usuario)
         {
+            if (usuario is TechLeader|| usuario is Desenvolvedor)
+            {
+                return $"{usuario.Senha},{usuario.Nome},{usuario.Cpf},{usuario.Email},{(usuario as TechLeader)?.Projeto.NomeProjeto ?? (usuario as Desenvolvedor)?.Projeto.NomeProjeto},{usuario.Ativo}";
+            }
             return $"{usuario.Senha},{usuario.Nome},{usuario.Cpf},{usuario.Email},{usuario.Ativo}";
         }
 

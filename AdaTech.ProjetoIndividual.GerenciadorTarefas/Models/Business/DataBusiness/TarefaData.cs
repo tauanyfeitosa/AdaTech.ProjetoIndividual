@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser;
 using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios;
+using System.Windows.Forms;
 
 namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusiness
 {
@@ -14,15 +15,25 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
         private static readonly string _DIRECTORY_PATH = AppDomain.CurrentDomain.BaseDirectory.Replace("\\bin\\Debug", "") + "\\Data";
         private static readonly string _FILE_PATH = Path.Combine(_DIRECTORY_PATH, "Tarefas.txt");
 
-        static TarefaData()
+        internal static List<Tarefas> Tarefas { get => _tarefas; set => _tarefas = value; }
+
+        internal static void CarregarDados()
         {
             _tarefas = LerTarefasTxt();
         }
 
-        internal static Tarefas AdicionarTarefa(string titulo, string descricao, DateTime dataInicio, PrioridadeTarefa prioridade, string observacoes, Usuario usuario, DateTime fim, List<int> idTarefas)
+        internal static Tarefas AdicionarTarefa(int id, string titulo, string descricao, DateTime dataInicio, PrioridadeTarefa prioridade, Usuario usuario, DateTime fim, List<int> idTarefas)
         {
-            var tarefasRelacionadas = BuscarPorId(idTarefas);
-            var tarefa = new Tarefas(titulo, descricao, dataInicio, prioridade, observacoes, usuario, fim, tarefasRelacionadas);
+            List<Tarefas> tarefasRelacionadas = BuscarPorId(idTarefas);
+            var tarefa = new Tarefas(id, titulo, descricao, dataInicio, prioridade, usuario, fim, tarefasRelacionadas);
+            _tarefas.Add(tarefa);
+            return tarefa;
+        }
+
+        internal static Tarefas AdicionarTarefa(string titulo, string descricao, DateTime dataInicio, PrioridadeTarefa prioridade, Usuario usuario, DateTime fim, List<int> idTarefas)
+        {
+            List<Tarefas> tarefasRelacionadas = BuscarPorId(idTarefas);
+            var tarefa = new Tarefas(titulo, descricao, dataInicio, prioridade, usuario, fim, tarefasRelacionadas);
             _tarefas.Add(tarefa);
             return tarefa;
         }
@@ -34,26 +45,37 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
 
         internal static Tarefas BuscarPorId(int id)
         {
-            return _tarefas.FirstOrDefault(x => x.Id == id);
+            return _tarefas.FirstOrDefault(x => x != null && x.Id == id);
         }
+
 
         internal static List<Tarefas> BuscarPorId(List<int> ids)
         {
-            return _tarefas.Where(x => ids.Contains(x.Id)).ToList();
+            List<Tarefas> tarefas = new List<Tarefas>();
+            if (ids != null) 
+            {
+                return _tarefas.Where(x => ids.Contains(x.Id)).ToList();
+            }
+            return tarefas;
         }
 
-        internal static void Editar(Tarefas tarefa)
+            internal static void Editar(Tarefas tarefa)
         {
             var tarefaEditar = BuscarPorId(tarefa.Id);
             tarefaEditar.Titulo = tarefa.Titulo;
             tarefaEditar.Descricao = tarefa.Descricao;
             tarefaEditar.DataInicio = tarefa.DataInicio;
             tarefaEditar.DataFimPrevista = tarefa.DataFimPrevista;
-            tarefaEditar.Usuario = tarefa.Usuario;
+            tarefaEditar.Responsavel = tarefa.Responsavel;
         }
         internal static bool VerificarId(int id)
         {
             return _tarefas.Any(x => x.Id == id);
+        }
+
+        internal static Tarefas ObterPorId(int id)
+        {
+            return _tarefas.FirstOrDefault(x => x.Id == id);
         }
 
         internal static List<Tarefas> LerTarefasTxt()
@@ -67,8 +89,8 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
                     while (!sr.EndOfStream)
                     {
                         string linha = sr.ReadLine();
-
                         Tarefas tarefa = ConverterLinha(linha);
+                        tarefas.Add(tarefa);
                     }
                 }
             }
@@ -77,21 +99,42 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
 
         internal static Tarefas ConverterLinha(string linha)
         {
-            var dados = linha.Split(';');
-            var id = int.Parse(dados[0]);
-            var titulo = dados[1];
-            var descricao = dados[2];
-            var dataInicio = DateTime.Parse(dados[3]);
-            var dataFimPrevista = DateTime.Parse(dados[4]);
-            var status = (StatusTarefa)Enum.Parse(typeof(StatusTarefa), dados[5]);
-            var prioridade = (PrioridadeTarefa)Enum.Parse(typeof(PrioridadeTarefa), dados[6]);
-            var observacoes = dados[7];
-            var dataConclusao = DateTime.Parse(dados[8]);
-            var dataCancelamento = DateTime.Parse(dados[9]);
-            Usuario usuario = UsuarioData.SelecionarUsuario(dados[10]);
-            List<int> idTarefas = dados[11].Split(',').Select(x => int.Parse(x)).ToList();
+            var dados = linha.Split(',');
+            var titulo = dados[0];
+            var descricao = dados[1];
+            var dataInicio = DateTime.Parse(dados[2]);
+            var dataFimPrevista = DateTime.Parse(dados[3]);
+            var prioridade = (PrioridadeTarefa)Enum.Parse(typeof(PrioridadeTarefa), dados[4]);
+            Usuario usuario = UsuarioData.SelecionarUsuario(dados[5]);
+            var id = int.Parse(dados[6]);
 
-            return AdicionarTarefa(titulo, descricao, dataInicio, prioridade, observacoes, usuario, dataFimPrevista, idTarefas);
+            var tarefa = AdicionarTarefa(id, titulo, descricao, dataInicio, prioridade, usuario, dataFimPrevista, null);
+            if (dados.Length > 7)
+            {
+                var status = (StatusTarefa)Enum.Parse(typeof(StatusTarefa), dados[7]);
+                tarefa.Status = status;
+
+                if (dados.Length > 8)
+                {
+                    if (dados[8] != "null" || dados[8] != "")
+                    {
+                        if (DateTime.TryParse(dados[8], out DateTime dataConclusao))
+                        {
+                            tarefa.DataConclusao = dataConclusao;
+                        }
+                            
+                    }
+                    
+                    if (dados.Length > 9)
+                    {
+                        List<int> idTarefas = dados[6].Split('/').Select(x => int.Parse(x)).ToList();
+                        tarefa.TarefasRelacionada = BuscarPorId(idTarefas);
+
+                    }
+                }
+            }
+
+            return tarefa;
         }
 
         internal static void SalvarTarefasTxt(List<Tarefas> tarefas)
@@ -102,7 +145,7 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
 
                 foreach (var tarefa in tarefas)
                 {
-                    var linha = $"{tarefa.Id};{tarefa.Titulo};{tarefa.Descricao};{tarefa.DataInicio};{tarefa.DataFimPrevista};{tarefa.Status};{tarefa.Prioridade};{tarefa.Observacoes};{tarefa.DataConclusao};{tarefa.DataCancelamento};{tarefa.Usuario.Cpf};{string.Join(",", tarefa.TarefasRelacionada.Select(x => x.Id))}";
+                    var linha = $"{tarefa.Id};{tarefa.Titulo};{tarefa.Descricao};{tarefa.DataInicio};{tarefa.DataFimPrevista};{tarefa.Status};{tarefa.Prioridade};{tarefa.DataConclusao};{tarefa.DataCancelamento};{tarefa.Responsavel.Cpf};{string.Join(",", tarefa.TarefasRelacionada.Select(x => x.Id))}";
                     linhas.Add(linha);
                 }
 
@@ -110,10 +153,16 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
 
                 _tarefas = LerTarefasTxt();
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception("Erro ao salvar tarefas", ex);
             }
+        }
+
+        internal static List<Tarefas> ObterTarefasPorResponsavel(Usuario usuario)
+        {
+            return _tarefas.Where(x => x.Responsavel == usuario).ToList();
         }
     }
 }

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.ProjetosBusiness;
+using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser;
 
 namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business
 {
@@ -17,27 +19,31 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business
         private DateTime _dataFimPrevista;
         private StatusTarefa _status;
         private PrioridadeTarefa _prioridade;
-        private string _observacoes;
         private DateTime _dataConclusao;
         private DateTime _dataCancelamento;
         private Usuario _usuario;
+        private Projetos _projeto;
         private List<Tarefas> _tarefasRelacionada;
 
-        internal int Id { get => _id; set => _id = value; }
-        internal string Titulo { get => _titulo; set => _titulo = value; }
-        internal string Descricao { get => _descricao; set => _descricao = value; }
-        internal DateTime DataInicio { get => _dataInicio; set => _dataInicio = value; }
-        internal DateTime DataFimPrevista { get => _dataFimPrevista; set => _dataFimPrevista = value; }
-        internal StatusTarefa Status { get => _status; set => _status = value; }
-        internal PrioridadeTarefa Prioridade { get => _prioridade; set => _prioridade = value; }
-        internal string Observacoes { get => _observacoes; set => _observacoes = value; }
-        internal DateTime DataConclusao { get => _dataConclusao; set => _dataConclusao = value; }
-        internal DateTime DataCancelamento { get => _dataCancelamento; set => _dataCancelamento = value; }
-        internal Usuario Usuario { get => _usuario; set => _usuario = value; }
-        internal List<Tarefas> TarefasRelacionada { get => _tarefasRelacionada; set => _tarefasRelacionada = value; }
+        public int Id { get => _id; set => _id = value; }
+        public string Titulo { get => _titulo; set => _titulo = value; }
+        public string Descricao { get => _descricao; set => _descricao = value; }
+        public DateTime DataInicio { get => _dataInicio; set => _dataInicio = value; }
+        public DateTime DataFimPrevista { get => _dataFimPrevista; set => _dataFimPrevista = value; }
+        public StatusTarefa Status { get => _status; set => _status = value; }
+        public PrioridadeTarefa Prioridade { get => _prioridade; set => _prioridade = value; }
+        public DateTime DataConclusao { get => _dataConclusao; set => _dataConclusao = value; }
+        public DateTime DataCancelamento { get => _dataCancelamento; set => _dataCancelamento = value; }
+        public Usuario Responsavel { get => _usuario; set => _usuario = value; }
+        public List<Tarefas> TarefasRelacionada { get => _tarefasRelacionada; set => _tarefasRelacionada = value; }
+
+        public Projetos Projeto { get => _projeto; }
+
+        public string NomeProjeto { get => _projeto.NomeProjeto; }
+        public string NomeResponsavel { get => _usuario.Nome; }
 
 
-        internal Tarefas(string titulo, string descricao, DateTime dataInicio, PrioridadeTarefa prioridade, string observacoes, Usuario usuario, DateTime fim, List<Tarefas> tarefasRelacionada = null, StatusTarefa status = StatusTarefa.Pendente)
+        internal Tarefas(string titulo, string descricao, DateTime dataInicio, PrioridadeTarefa prioridade, Usuario usuario, DateTime fim, List<Tarefas> tarefasRelacionada = null, StatusTarefa status = StatusTarefa.Pendente)
         {
             _titulo = titulo;
             _descricao = descricao;
@@ -45,10 +51,28 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business
             _dataFimPrevista = fim;
             _status = status;
             _prioridade = prioridade;
-            _observacoes = observacoes;
             _usuario = usuario;
             _tarefasRelacionada = tarefasRelacionada;
             _id = GerarId();
+            _projeto = (usuario is TechLeader techLeader) ? techLeader.Projeto :
+                       (usuario is Desenvolvedor desenvolvedor) ? desenvolvedor.Projeto :
+                        null;
+        }
+
+        internal Tarefas(int id,string titulo, string descricao, DateTime dataInicio, PrioridadeTarefa prioridade, Usuario usuario, DateTime fim, List<Tarefas> tarefasRelacionada = null, StatusTarefa status = StatusTarefa.Pendente)
+        {
+            _titulo = titulo;
+            _descricao = descricao;
+            _dataInicio = dataInicio;
+            _dataFimPrevista = fim;
+            _status = status;
+            _prioridade = prioridade;
+            _usuario = usuario;
+            _tarefasRelacionada = tarefasRelacionada;
+            _id = id;
+            _projeto = (usuario is TechLeader techLeader) ? techLeader.Projeto :
+                       (usuario is Desenvolvedor desenvolvedor) ? desenvolvedor.Projeto :
+                        null;
         }
 
         internal void EditarTarefa(string titulo = null, string descricao = null, DateTime? dataInicio = null, PrioridadeTarefa? prioridade = null, string observacoes = null, Usuario usuario = null, DateTime? fim = null, List<Tarefas> tarefasRelacionada = null, StatusTarefa? status = null)
@@ -81,11 +105,6 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business
             if (prioridade.HasValue)
             {
                 _prioridade = prioridade.Value;
-            }
-
-            if (observacoes != null)
-            {
-                _observacoes = observacoes;
             }
 
             if (usuario != null)

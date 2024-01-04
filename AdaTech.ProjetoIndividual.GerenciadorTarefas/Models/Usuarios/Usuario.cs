@@ -14,12 +14,30 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios
         private string _cpf;
         private bool _ativo;
 
-        internal string Nome { get => _nome; set => _nome = value; }
+        public string Nome { get => _nome; set => _nome = value; }
         internal string Email { get => _email; set => _email = value; }
         internal string Senha { get => _senha; set => _senha = value; }
         internal string Cpf { get => _cpf; set => _cpf = value; }
         internal bool Ativo { get => _ativo; set => _ativo = value; }
 
+        public string Cargo
+        {
+            get
+            {
+                if (this is Administrador)
+                {
+                    return "Administrador";
+                }
+                else if (this is TechLeader)
+                {
+                    return "Tech Leader";
+                }
+                else
+                {
+                    return "Desenvolvedor";
+                }
+            }
+        }
 
         internal Usuario(string nome, string email, string senha, string cpf, bool ativo = true)
         {
