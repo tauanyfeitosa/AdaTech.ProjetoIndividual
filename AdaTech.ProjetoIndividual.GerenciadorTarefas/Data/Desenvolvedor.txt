@@ -1,20 +1,55 @@
-﻿111222,Juliana Oliveira,11122233344,juliana.oliveira@gmail.com,True
-333444,Ricardo Santos,55566677788,ricardo.santos@gmail.com,True
-555666,Patrícia Lima,99900011122,patricia.lima@gmail.com,True
-777888,Felipe Silva,33344455566,felipe.silva@gmail.com,True
-999000,André Oliveira,77788899900,andre.oliveira@gmail.com,True
-111222,Larissa Santos,11111122222,larissa.santos@gmail.com,True
-333444,Gabriel Lima,44444455555,gabriel.lima@gmail.com,True
-555666,Amanda Silva,77777788888,amanda.silva@gmail.com,True
-777888,Carlos Oliveira,22233344455,carlos.oliveira@gmail.com,True
-999000,Ana Pereira,88899900011,ana.pereira@gmail.com,True
-111222,Marcos Santos,55555566666,marcos.santos@gmail.com,True
-333444,Isabela Lima,99999900000,isabela.lima@gmail.com,True
-555666,Rodrigo Silva,11111112222,rodrigo.silva@gmail.com,True
-777888,Juliana Oliveira,33333334444,juliana.oliveira@gmail.com,True
-999000,Raquel Santos,55555556666,raquel.santos@gmail.com,True
-111222,Lucas Lima,77777778888,lucas.lima@gmail.com,True
-333444,Bianca Silva,99999991111,bianca.silva@gmail.com,True
-555666,Fernando Oliveira,11111113333,fernando.oliveira@gmail.com,True
-777888,Sofia Santos,44444445555,sofia.santos@gmail.com,True
-999000,Rafael Lima,66666667777,rafael.lima@gmail.com,True
+﻿111222,Juliana Oliveira,11122233344,juliana.oliveira@gmail.com,Salus,True
+333444,Ricardo Santos,55566677788,ricardo.santos@gmail.com,Salus,True
+555666,Patrícia Lima,99900011122,patricia.lima@gmail.com,Salus,True
+777888,Felipe Silva,33344455566,felipe.silva@gmail.com,Salus,True
+999000,André Oliveira,77788899900,andre.oliveira@gmail.com,Salus,True
+111222,Larissa Santos,11111122222,larissa.santos@gmail.com,Salus,True
+333444,Gabriel Lima,44444455555,gabriel.lima@gmail.com,Salus,True
+555666,Amanda Silva,77777788888,amanda.silva@gmail.com,Salus,True
+777888,Carlos Oliveira,22233344455,carlos.oliveira@gmail.com,Salus,True
+999000,Ana Pereira,88899900011,ana.pereira@gmail.com,Salus,True
+111222,Mariana Silva,22222233333,mariana.silva@gmail.com,Salus Pré-Natal,True
+333444,João Oliveira,44444455555,joao.oliveira@gmail.com,Salus Pré-Natal,True
+555666,Larissa Lima,66666677777,larissa.lima@gmail.com,Salus Pré-Natal,True
+777888,Pedro Santos,88888899999,pedro.santos@gmail.com,Salus Pré-Natal,True
+999000,Ana Oliveira,11111122222,ana.oliveira@gmail.com,Salus Pré-Natal,True
+111222,Juliana Oliveira,11122233344,juliana.oliveira@gmail.com,SIRI,True
+333444,Ricardo Santos,55566677788,ricardo.santos@gmail.com,SIRI,True
+555666,Patrícia Lima,99900011122,patricia.lima@gmail.com,SIRI,True
+777888,Felipe Silva,33344455566,felipe.silva@gmail.com,SIRI,True
+999000,André Oliveira,77788899900,andre.oliveira@gmail.com,SIRI,True
+111222,Larissa Santos,11111122222,larissa.santos@gmail.com,SisCovid,True
+333444,Gabriel Lima,44444455555,gabriel.lima@gmail.com,SisCovid,True
+555666,Amanda Silva,77777788888,amanda.silva@gmail.com,SisCovid,True
+777888,Carlos Oliveira,22233344455,carlos.oliveira@gmail.com,SisCovid,True
+999000,Ana Pereira,88899900011,ana.pereira@gmail.com,SisCovid,True
+111222,Marcos Santos,55555566666,marcos.santos@gmail.com,SisVet,True
+333444,Isabela Lima,99999900000,isabela.lima@gmail.com,SisVet,True
+555666,Rodrigo Silva,11111112222,rodrigo.silva@gmail.com,SisVet,True
+777888,Juliana Oliveira,33333334444,juliana.oliveira@gmail.com,SisVet,True
+999000,Raquel Santos,55555556666,raquel.santos@gmail.com,SisVet,True
+111222,Lucas Lima,77777778888,lucas.lima@gmail.com,Salus,False
+333444,Bianca Silva,99999991111,bianca.silva@gmail.com,Salus,False
+555666,Fernando Oliveira,11111113333,fernando.oliveira@gmail.com,Salus,False
+777888,Sofia Santos,44444445555,sofia.santos@gmail.com,Salus,True
+999000,Rafael Lima,66666667777,rafael.lima@gmail.com,Salus,False
+111222,Larissa Santos,11111122222,larissa.santos@gmail.com,Salus Pré-Natal,False
+333444,Gabriel Lima,44444455555,gabriel.lima@gmail.com,Salus Pré-Natal,True
+555666,Amanda Silva,77777788888,amanda.silva@gmail.com,Salus Pré-Natal,False
+777888,Carlos Oliveira,22233344455,carlos.oliveira@gmail.com,Salus Pré-Natal,True
+999000,Ana Pereira,88899900011,ana.pereira@gmail.com,Salus Pré-Natal,False
+111222,Marcos Santos,55555566666,marcos.santos@gmail.com,SIRI,True
+333444,Isabela Lima,99999900000,isabela.lima@gmail.com,SIRI,True
+555666,Rodrigo Silva,11111112222,rodrigo.silva@gmail.com,SIRI,False
+777888,Juliana Oliveira,33333334444,juliana.oliveira@gmail.com,SIRI,False
+999000,Raquel Santos,55555556666,raquel.santos@gmail.com,SIRI,True
+111222,Lucas Lima,77777778888,lucas.lima@gmail.com,SisCovid,False
+333444,Bianca Silva,99999991111,bianca.silva@gmail.com,SisCovid,False
+555666,Fernando Oliveira,11111113333,fernando.oliveira@gmail.com,SisCovid,True
+777888,Sofia Santos,44444445555,sofia.santos@gmail.com,SisCovid,True
+999000,Rafael Lima,66666667777,rafael.lima@gmail.com,SisCovid,False
+111222,Mariana Silva,22222233333,mariana.silva@gmail.com,SisVet,False
+333444,João Oliveira,44444455555,joao.oliveira@gmail.com,SisVet,True
+555666,Larissa Lima,66666677777,larissa.lima@gmail.com,SisVet,False
+777888,Pedro Santos,88888899999,pedro.santos@gmail.com,SisVet,True
+999000,Ana Oliveira,11111122222,ana.oliveira@gmail.com,SisVet,False
