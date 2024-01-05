@@ -1,4 +1,4 @@
-﻿123456,João Silva,12345678901,joao.silva@gmail.com,Salus,True
+123456,João Silva,12345678901,joao.silva@gmail.com,Salus,True
 654321,Ana Santos,98765432101,ana.santos@gmail.com,Salus Pré-Natal,True
 987654,Carlos Oliveira,45678901234,carlos.oliveira@gmail.com,SisVet,True
 567890,Isabela Lima,87654321098,isabela.lima@gmail.com,SIRI,True

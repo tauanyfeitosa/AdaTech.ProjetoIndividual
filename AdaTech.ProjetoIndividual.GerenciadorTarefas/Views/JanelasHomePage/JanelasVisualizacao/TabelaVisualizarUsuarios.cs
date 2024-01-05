@@ -10,13 +10,15 @@ using AdaTech.ProjetoIndividual.GerenciadorTarefas.Views.TabelasDetalhesHomePage
 
 namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views.JanelasHomePage
 {
-    public partial class TabelaVisualizarUsuarios : Form
+    internal partial class TabelaVisualizarUsuarios : Form
     {
         private DataGridView dataGridViewUsuarios = new DataGridView();
         private List<Usuario> usuarios;
+        private Usuario usuario;
 
-        public TabelaVisualizarUsuarios()
+        internal TabelaVisualizarUsuarios(Usuario usuario)
         {
+            this.usuario = usuario;
             InitializeComponent();
             InicializarDataGridView();
             CarregarUsuarios();
@@ -37,6 +39,11 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views.JanelasHomePage
             colCargo.HeaderText = "Cargo";
             dataGridViewUsuarios.Columns.Add(colCargo);
 
+            DataGridViewTextBoxColumn colAtivo = new DataGridViewTextBoxColumn();
+            colAtivo.DataPropertyName = "Ativo";
+            colAtivo.HeaderText = "Ativo";
+            dataGridViewUsuarios.Columns.Add(colAtivo);
+
             dataGridViewUsuarios.CellClick += DataGridViewUsuarios_CellClick;
 
             Controls.Add(dataGridViewUsuarios);
@@ -47,9 +54,24 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views.JanelasHomePage
             try
             {
                 usuarios = new List<Usuario>();
-                usuarios.AddRange(UsuarioData.Desenvolvedores);
-                usuarios.AddRange(UsuarioData.TechLeaders);
-                usuarios.AddRange(UsuarioData.Administrador);
+
+                if (usuario is TechLeader tl)
+                {
+                    var usuariosPorTechLeader = UsuarioData.ListarUsuarios(tl.Projetos);
+                    usuarios.AddRange(usuariosPorTechLeader.Item2);
+                    usuarios.AddRange(usuariosPorTechLeader.Item1);
+                } else if (usuario is Desenvolvedor d)
+                {
+                    var usuariosPorDesenvolvedor = UsuarioData.ListarUsuarios(d.Projetos);
+                    usuarios.AddRange(usuariosPorDesenvolvedor.Item2);
+                    usuarios.AddRange(usuariosPorDesenvolvedor.Item1);
+                } else
+                {
+                    usuarios.AddRange(UsuarioData.Desenvolvedores);
+                    usuarios.AddRange(UsuarioData.TechLeaders);
+                    usuarios.AddRange(UsuarioData.Administrador);
+                }
+                
 
                 if (usuarios.Count > 0)
                 {

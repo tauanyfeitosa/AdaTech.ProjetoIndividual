@@ -68,34 +68,52 @@
     <Compile Include="Views\HomePage.Designer.cs">
       <DependentUpon>HomePage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\JanelasHomePage\JanelaAdicionarProjeto.cs">
+    <Compile Include="Views\JanelasHomePage\JanelasCriacao\JanelaAdicionarProjeto.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\JanelasHomePage\JanelaAdicionarProjeto.Designer.cs">
+    <Compile Include="Views\JanelasHomePage\JanelasCriacao\JanelaAdicionarProjeto.Designer.cs">
       <DependentUpon>JanelaAdicionarProjeto.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\JanelasHomePage\JanelaCadastrarTechLeader.cs">
+    <Compile Include="Views\JanelasHomePage\JanelasCriacao\JanelaAlterarSenha.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\JanelasHomePage\JanelaCadastrarTechLeader.Designer.cs">
+    <Compile Include="Views\JanelasHomePage\JanelasCriacao\JanelaAlterarSenha.Designer.cs">
+      <DependentUpon>JanelaAlterarSenha.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\JanelasHomePage\JanelasCriacao\CriarUsuarios\JanelaCadastrarDev.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\JanelasHomePage\JanelasCriacao\CriarUsuarios\JanelaCadastrarDev.Designer.cs">
+      <DependentUpon>JanelaCadastrarDev.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\JanelasHomePage\JanelasCriacao\CriarUsuarios\JanelaCadastrarTechLeader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\JanelasHomePage\JanelasCriacao\CriarUsuarios\JanelaCadastrarTechLeader.Designer.cs">
       <DependentUpon>JanelaCadastrarTechLeader.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\JanelasHomePage\TabelaVisualizarProjetos.cs">
+    <Compile Include="Views\JanelasHomePage\JanelasCriacao\JanelaCriarTarefa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\JanelasHomePage\TabelaVisualizarProjetos.Designer.cs">
+    <Compile Include="Views\JanelasHomePage\JanelasCriacao\JanelaCriarTarefa.Designer.cs">
+      <DependentUpon>JanelaCriarTarefa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\JanelasHomePage\JanelasVisualizacao\TabelaVisualizarProjetos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\JanelasHomePage\JanelasVisualizacao\TabelaVisualizarProjetos.Designer.cs">
       <DependentUpon>TabelaVisualizarProjetos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\JanelasHomePage\TabelaVisualizarTarefas.cs">
+    <Compile Include="Views\JanelasHomePage\JanelasVisualizacao\TabelaVisualizarTarefas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\JanelasHomePage\TabelaVisualizarTarefas.Designer.cs">
+    <Compile Include="Views\JanelasHomePage\JanelasVisualizacao\TabelaVisualizarTarefas.Designer.cs">
       <DependentUpon>TabelaVisualizarTarefas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\JanelasHomePage\TabelaVisualizarUsuarios.cs">
+    <Compile Include="Views\JanelasHomePage\JanelasVisualizacao\TabelaVisualizarUsuarios.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\JanelasHomePage\TabelaVisualizarUsuarios.Designer.cs">
+    <Compile Include="Views\JanelasHomePage\JanelasVisualizacao\TabelaVisualizarUsuarios.Designer.cs">
       <DependentUpon>TabelaVisualizarUsuarios.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\TabelasDetalhesHomePage\DetalhesTarefas.cs">
