@@ -141,6 +141,46 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser
             return techLeader;
         }
 
+        internal static bool VerificarUsuarioExistenteCpf(string cpf)
+        {
+            Usuario usuario = SelecionarUsuario(cpf);
+
+            if (usuario != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        internal static bool VerificarUsuarioExistenteEmail(string email)
+        {
+            Usuario usuario = SelecionarUsuario(email);
+
+            if (usuario != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        internal static Tuple<List<Desenvolvedor>, List<TechLeader>> ListarUsuarios(Projetos projeto)
+        {
+            List<Desenvolvedor> desenvolvedores = _desenvolvedores.Where(x => x.Projeto.NomeProjeto == projeto.NomeProjeto).ToList();
+            List<TechLeader> techLeaders = _techLeaders.Where(x => x.Projeto.NomeProjeto == projeto.NomeProjeto).ToList();
+
+            return new Tuple<List<Desenvolvedor>, List<TechLeader>>(desenvolvedores, techLeaders);
+        }
+
+        internal static Tuple<List<Desenvolvedor>, List<TechLeader>> ListarUsuariosAtivos(Projetos projeto)
+        {
+            List<Desenvolvedor> desenvolvedores = _desenvolvedores.Where(x => x.Projeto.NomeProjeto == projeto.NomeProjeto && x.Ativo == true).ToList();
+            List<TechLeader> techLeaders = _techLeaders.Where(x => x.Projeto.NomeProjeto == projeto.NomeProjeto && x.Ativo == true).ToList();
+
+            return new Tuple<List<Desenvolvedor>, List<TechLeader>>(desenvolvedores, techLeaders);
+        }
+
         internal static void AdicionarTechLeader (string senha, string nome, string cpf, string email, Projetos projeto, bool ativo = true)
         {
             TechLeader techLeader = new TechLeader(senha, nome, cpf, email, projeto.NomeProjeto, ativo);
@@ -149,6 +189,16 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser
             List<TechLeader> list = new List<TechLeader>();
             list.Add(techLeader);
             SalvarTechLeaderTxt(list);
+        }
+
+        internal static void AdicionarDesenvolvedor(string senha, string nome, string cpf, string email, Projetos projeto, bool ativo = true)
+        {
+            Desenvolvedor desenvolvedor = new Desenvolvedor(senha, nome, cpf, email, projeto.NomeProjeto, ativo);
+            _desenvolvedores.Add(desenvolvedor);
+
+            List<Desenvolvedor> list = new List<Desenvolvedor>();
+            list.Add(desenvolvedor);
+            SalvarDesenvolvedoresTxt(list);
         }
 
         internal static List<Usuario> LerUsuariosTxt(string _FILE_PATH, int tipoUsuario)
@@ -414,6 +464,73 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser
             }
             return $"{usuario.Senha},{usuario.Nome},{usuario.Cpf},{usuario.Email},{usuario.Ativo}";
         }
+
+        internal static bool VerificarSenhaAntiga(Usuario usuario, string senha)
+        {
+            if (usuario.Senha == senha)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        internal static void AtualizarSenha(Usuario usuario, string novaSenha)
+        {
+            // Atualizar a senha no objeto de usuário
+            usuario.Senha = novaSenha;
+
+            // Chamar o método para atualizar a senha no arquivo de texto
+            AtualizarSenhaNoArquivo(usuario, novaSenha);
+        }
+
+        private static void AtualizarSenhaNoArquivo(Usuario usuario, string novaSenha)
+        {
+            try
+            {
+                string[] linhas = File.ReadAllLines(GetArquivoUsuario(usuario));
+
+                for (int i = 0; i < linhas.Length; i++)
+                {
+                    string[] partes = linhas[i].Split(',');
+
+                    if (partes.Length >= 4 && partes[2] == usuario.Cpf && partes[3] == usuario.Email)
+                    {
+                        partes[0] = novaSenha;
+
+                        linhas[i] = string.Join(",", partes);
+
+                        break;
+                    }
+                }
+
+                File.WriteAllLines(GetArquivoUsuario(usuario), linhas);
+
+                MessageBox.Show("Senha atualizada com sucesso no arquivo.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao atualizar a senha no arquivo: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private static string GetArquivoUsuario(Usuario usuario)
+        {
+            if (usuario is Desenvolvedor)
+            {
+                return _FILE_PATH_DESENVOLVEDOR;
+            }
+            else if (usuario is TechLeader)
+            {
+                return _FILE_PATH_TECH_LEADER;
+            }
+            else if (usuario is Administrador)
+            {
+                return _FILE_PATH_ADMINISTRADOR;
+            }
+
+            throw new ArgumentException("Tipo de usuário não reconhecido.");
+        }
+
 
     }
 }

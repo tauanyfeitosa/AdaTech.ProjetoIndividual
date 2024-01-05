@@ -24,7 +24,7 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Controllers
             try
             {
                 var usuario = UsuarioData.SelecionarUsuario(_telaLogin.TxtUsuario.Text);
-                if (_telaLogin.TxtUsuario.Text != null && usuario != null && _telaLogin.TxtUsuario.Text == UsuarioData.SelecionarUsuario(_telaLogin.TxtUsuario.Text).Cpf)
+                if (_telaLogin.TxtUsuario.Text != null && usuario != null && _telaLogin.TxtUsuario.Text == usuario.Cpf && usuario.Ativo)
                 {
                     if (usuario.FazerLogin(_telaLogin.TxtUsuario.Text, _telaLogin.TxtSenha.Text))
                     {
@@ -36,6 +36,9 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Controllers
                         MessageBox.Show("Senha incorreta!");
                         return verificador;
                     }
+                } else
+                {
+                    MessageBox.Show("Usuário não encontrado! Verifique se está ativo!");
                 }
             }
             catch

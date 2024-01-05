@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.ProjetosBusiness;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,6 +37,33 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios
                 {
                     return "Desenvolvedor";
                 }
+            }
+        }
+
+        public Projetos Projetos
+        {
+            get
+            {
+                if (this is TechLeader)
+                {
+                    return ((TechLeader)this).Projeto;
+                }
+                else if (this is Desenvolvedor)
+                {
+                    return ((Desenvolvedor)this).Projeto;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public string NomeEstilo
+        {
+            get
+            {
+                return $"{Nome} - {Cpf} - {Cargo}";
             }
         }
 

@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business;
 using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusiness;
+using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios;
 using AdaTech.ProjetoIndividual.GerenciadorTarefas.Views.TabelasDetalhesHomePage;
 
 namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views.JanelasHomePage
 {
-    public partial class TabelaVisualizarTarefas : Form
+    internal partial class TabelaVisualizarTarefas : Form
     {
         private Panel panel;
         private DataGridView dataGridViewTarefas = new DataGridView();
+        private Usuario usuarioLogado;
 
-        public TabelaVisualizarTarefas()
+        internal TabelaVisualizarTarefas(Usuario usuario)
         {
+            this.usuarioLogado = usuario;
             InitializeComponent();
             CarregarTarefas();
             InicializarDataGridView();
@@ -23,7 +27,48 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views.JanelasHomePage
         {
             try
             {
-                List<Tarefas> tarefas = TarefaData.Listar();
+                List<Tarefas> tarefas = new List<Tarefas>();
+
+                if (usuarioLogado is TechLeader tl)
+                {
+                    tarefas = TarefaData.Listar(tl.Projeto);
+
+                    foreach (var tarefa in new List<Tarefas>(tarefas))
+                    {
+                        if (tarefa.TarefasRelacionada != null)
+                        {
+                            var tarefasRelacionadas = TarefaData.BuscarPorId(tarefa.TarefasRelacionada);
+                            
+                            foreach (var tarefaRelacionada in tarefasRelacionadas)
+                            {
+                                if (!tarefas.Contains(tarefaRelacionada))
+                                {
+                                    tarefas.Add(tarefaRelacionada);
+                                }
+                            }
+                        }
+                    }
+                }
+                else if (usuarioLogado is Desenvolvedor d)
+                {
+                    tarefas = TarefaData.ListarTarefasDev(d);
+
+                    foreach (var tarefa in new List<Tarefas>(tarefas))
+                    {
+                        if (tarefa.TarefasRelacionada != null)
+                        {
+                            var tarefasRelacionadas = TarefaData.BuscarPorId(tarefa.TarefasRelacionada);
+
+                            foreach (var tarefaRelacionada in tarefasRelacionadas)
+                            {
+                                if (!tarefas.Contains(tarefaRelacionada))
+                                {
+                                    tarefas.Add(tarefaRelacionada);
+                                }
+                            }
+                        }
+                    }
+                }
 
                 if (tarefas.Count > 0)
                 {
@@ -63,6 +108,16 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views.JanelasHomePage
             colResponsavel.HeaderText = "Responsável";
             dataGridViewTarefas.Columns.Add(colResponsavel);
 
+            DataGridViewTextBoxColumn colCargo = new DataGridViewTextBoxColumn();
+            colCargo.DataPropertyName = "Cargo";
+            colCargo.HeaderText = "Cargo";
+            dataGridViewTarefas.Columns.Add(colCargo);
+
+            DataGridViewTextBoxColumn colPrioridade = new DataGridViewTextBoxColumn();
+            colPrioridade.DataPropertyName = "Prioridade";
+            colPrioridade.HeaderText = "Prioridade";
+            dataGridViewTarefas.Columns.Add(colPrioridade);
+
             DataGridViewTextBoxColumn colStatus = new DataGridViewTextBoxColumn();
             colStatus.DataPropertyName = "Status";
             colStatus.HeaderText = "Status";
@@ -97,7 +152,7 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views.JanelasHomePage
 
         private void MostrarDetalhesTarefa(Tarefas tarefa)
         {
-            DetalhesTarefas detalhesForm = new DetalhesTarefas(tarefa);
+            DetalhesTarefas detalhesForm = new DetalhesTarefas(tarefa, usuarioLogado);
             detalhesForm.ShowDialog();
         }
     }

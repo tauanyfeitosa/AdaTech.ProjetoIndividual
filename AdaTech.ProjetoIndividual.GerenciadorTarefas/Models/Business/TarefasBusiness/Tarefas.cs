@@ -23,7 +23,7 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business
         private DateTime _dataCancelamento;
         private Usuario _usuario;
         private Projetos _projeto;
-        private List<Tarefas> _tarefasRelacionada;
+        private List<int> _tarefasRelacionada;
 
         public int Id { get => _id; set => _id = value; }
         public string Titulo { get => _titulo; set => _titulo = value; }
@@ -35,15 +35,31 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business
         public DateTime DataConclusao { get => _dataConclusao; set => _dataConclusao = value; }
         public DateTime DataCancelamento { get => _dataCancelamento; set => _dataCancelamento = value; }
         public Usuario Responsavel { get => _usuario; set => _usuario = value; }
-        public List<Tarefas> TarefasRelacionada { get => _tarefasRelacionada; set => _tarefasRelacionada = value; }
+        public List<int> TarefasRelacionada { get => _tarefasRelacionada; set => _tarefasRelacionada = value; }
 
         public Projetos Projeto { get => _projeto; }
 
         public string NomeProjeto { get => _projeto.NomeProjeto; }
         public string NomeResponsavel { get => _usuario.Nome; }
 
+        public string NomeEstilo
+        {
+            get
+            {
+                return $"{Id} - {Titulo}";
+            }
+        }
 
-        internal Tarefas(string titulo, string descricao, DateTime dataInicio, PrioridadeTarefa prioridade, Usuario usuario, DateTime fim, List<Tarefas> tarefasRelacionada = null, StatusTarefa status = StatusTarefa.Pendente)
+        public string Cargo
+        {
+            get
+            {
+                return _usuario.Cargo;
+            }
+        }
+
+
+        internal Tarefas(string titulo, string descricao, DateTime dataInicio, PrioridadeTarefa prioridade, Usuario usuario, DateTime fim, List<int> tarefasRelacionada = null, StatusTarefa status = StatusTarefa.Pendente)
         {
             _titulo = titulo;
             _descricao = descricao;
@@ -59,7 +75,7 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business
                         null;
         }
 
-        internal Tarefas(int id,string titulo, string descricao, DateTime dataInicio, PrioridadeTarefa prioridade, Usuario usuario, DateTime fim, List<Tarefas> tarefasRelacionada = null, StatusTarefa status = StatusTarefa.Pendente)
+        internal Tarefas(int id,string titulo, string descricao, DateTime dataInicio, PrioridadeTarefa prioridade, Usuario usuario, DateTime fim, List<int> tarefasRelacionada = null, StatusTarefa status = StatusTarefa.Pendente)
         {
             _titulo = titulo;
             _descricao = descricao;
@@ -75,7 +91,7 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business
                         null;
         }
 
-        internal void EditarTarefa(string titulo = null, string descricao = null, DateTime? dataInicio = null, PrioridadeTarefa? prioridade = null, string observacoes = null, Usuario usuario = null, DateTime? fim = null, List<Tarefas> tarefasRelacionada = null, StatusTarefa? status = null)
+        internal void EditarTarefa(string titulo = null, string descricao = null, DateTime? dataInicio = null, PrioridadeTarefa? prioridade = null, string observacoes = null, Usuario usuario = null, DateTime? fim = null, List<int> tarefasRelacionada = null, StatusTarefa? status = null)
         {
             if (titulo != null)
             {
@@ -132,25 +148,7 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business
 
         internal void AdicionarTarefaRelacionada(Tarefas tarefa)
         {
-            _tarefasRelacionada.Add(tarefa);
-        }
-
-        internal void AdicionarTarefaRelacionada(List<Tarefas> tarefas)
-        {
-            _tarefasRelacionada.AddRange(tarefas);
-        }
-
-        internal void RemoverTarefaRelacionada(Tarefas tarefa)
-        {
-            _tarefasRelacionada.Remove(tarefa);
-        }
-
-        internal void RemoverTarefaRelacionada(List<Tarefas> tarefas)
-        {
-            foreach (var tarefa in tarefas)
-            {
-                _tarefasRelacionada.Remove(tarefa);
-            }
+            _tarefasRelacionada.Add(tarefa.Id);
         }
 
         internal int GerarId()

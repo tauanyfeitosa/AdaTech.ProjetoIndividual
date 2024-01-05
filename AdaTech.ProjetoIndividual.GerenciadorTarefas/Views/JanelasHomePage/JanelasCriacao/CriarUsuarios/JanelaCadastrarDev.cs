@@ -8,16 +8,16 @@ using System.Windows.Forms;
 
 namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views.JanelasHomePage
 {
-    public partial class JanelaCadastrarTechLeader : Form
+    public partial class JanelaCadastrarDev : Form
     {
         private TextBox txtSenha;
         private TextBox txtNome;
         private TextBox txtCpf;
         private TextBox txtEmail;
         private ComboBox cmbProjetos;
-        private Button btnCadastrarTechLeader;
+        private Button btnCadastrarDev;
 
-        public JanelaCadastrarTechLeader()
+        public JanelaCadastrarDev()
         {
             InitializeComponent();
             ConfigurarControles();
@@ -71,22 +71,21 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views.JanelasHomePage
             Controls.Add(lblEmail);
 
             cmbProjetos = new ComboBox();
-            cmbProjetos.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbProjetos.Location = new System.Drawing.Point(20, 180);
             cmbProjetos.Size = new System.Drawing.Size(200, 25);
             Controls.Add(cmbProjetos);
 
             Label lblProjetos = new Label();
-            lblProjetos.Text = "Projetos:";
+            lblProjetos.Text = "Projeto:";
             lblProjetos.Location = new System.Drawing.Point(230, 180);
             lblProjetos.AutoSize = true;
             Controls.Add(lblProjetos);
 
-            btnCadastrarTechLeader = new Button();
-            btnCadastrarTechLeader.Text = "Cadastrar TechLeader";
-            btnCadastrarTechLeader.Location = new System.Drawing.Point(20, 220);
-            btnCadastrarTechLeader.Click += btnCadastrarTechLeader_Click;
-            Controls.Add(btnCadastrarTechLeader);
+            btnCadastrarDev = new Button();
+            btnCadastrarDev.Text = "Cadastrar Desenvolvedor";
+            btnCadastrarDev.Location = new System.Drawing.Point(20, 220);
+            btnCadastrarDev.Click += btnCadastrarDev_Click;
+            Controls.Add(btnCadastrarDev);
         }
 
         private void CarregarProjetos()
@@ -97,7 +96,7 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views.JanelasHomePage
             cmbProjetos.DisplayMember = "NomeProjeto";
         }
 
-        private void btnCadastrarTechLeader_Click(object sender, EventArgs e)
+        private void btnCadastrarDev_Click(object sender, EventArgs e)
         {
             string senha = txtSenha.Text;
             string nome = txtNome.Text;
@@ -111,11 +110,23 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views.JanelasHomePage
                 return;
             }
 
-            UsuarioData.AdicionarTechLeader(senha, nome, cpf, email, projetoSelecionado);
+            if (UsuarioData.VerificarUsuarioExistenteCpf(cpf))
+            {
+                MessageBox.Show("CPF já cadastrado no sistema. Escolha um CPF diferente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (UsuarioData.VerificarUsuarioExistenteEmail(email))
+            {
+                MessageBox.Show("E-mail já cadastrado no sistema. Escolha um e-mail diferente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            UsuarioData.AdicionarDesenvolvedor(senha, nome, cpf, email, projetoSelecionado);
 
             LimparCampos();
 
-            MessageBox.Show("TechLeader cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Desenvolvedor cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void LimparCampos()

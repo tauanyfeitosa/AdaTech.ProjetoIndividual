@@ -5,6 +5,7 @@ using System.Linq;
 using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser;
 using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios;
 using System.Windows.Forms;
+using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.ProjetosBusiness;
 
 namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusiness
 {
@@ -22,25 +23,47 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
             _tarefas = LerTarefasTxt();
         }
 
-        internal static Tarefas AdicionarTarefa(int id, string titulo, string descricao, DateTime dataInicio, PrioridadeTarefa prioridade, Usuario usuario, DateTime fim, List<int> idTarefas)
+        internal static void AdicionarTarefa(int id, string titulo, string descricao, DateTime dataInicio, PrioridadeTarefa prioridade, Usuario usuario, DateTime fim, List<int> idTarefas)
         {
-            List<Tarefas> tarefasRelacionadas = BuscarPorId(idTarefas);
+            List<int> tarefasRelacionadas = idTarefas;
             var tarefa = new Tarefas(id, titulo, descricao, dataInicio, prioridade, usuario, fim, tarefasRelacionadas);
             _tarefas.Add(tarefa);
-            return tarefa;
+            List<Tarefas> lista = new List<Tarefas>();
+            lista.Add(tarefa);
+            SalvarTarefasTxt(lista);
         }
 
-        internal static Tarefas AdicionarTarefa(string titulo, string descricao, DateTime dataInicio, PrioridadeTarefa prioridade, Usuario usuario, DateTime fim, List<int> idTarefas)
+        internal static bool AdicionarTarefa(string titulo, string descricao, DateTime dataInicio, PrioridadeTarefa prioridade, Usuario usuario, DateTime fim, List<int> idTarefas)
         {
-            List<Tarefas> tarefasRelacionadas = BuscarPorId(idTarefas);
-            var tarefa = new Tarefas(titulo, descricao, dataInicio, prioridade, usuario, fim, tarefasRelacionadas);
-            _tarefas.Add(tarefa);
-            return tarefa;
+            try 
+            {
+                List<int> tarefasRelacionadas = idTarefas;
+                var tarefa = new Tarefas(titulo, descricao, dataInicio, prioridade, usuario, fim, tarefasRelacionadas);
+                _tarefas.Add(tarefa);
+                List<Tarefas> lista = new List<Tarefas>();
+                lista.Add(tarefa);
+                SalvarTarefasTxt(lista);
+
+                return true;
+            }catch
+            {
+                return false;
+            }
         }
 
         internal static List<Tarefas> Listar()
         {
             return _tarefas;
+        }
+
+        internal static List<Tarefas> Listar(Projetos projeto)
+        {
+            return _tarefas.Where(x => x.Projeto == projeto).ToList();
+        }
+
+        internal static List<Tarefas> ListarTarefasDev(Desenvolvedor dev)
+        {
+            return _tarefas.Where(x => x.Responsavel == dev).ToList();
         }
 
         internal static Tarefas BuscarPorId(int id)
@@ -59,15 +82,6 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
             return tarefas;
         }
 
-            internal static void Editar(Tarefas tarefa)
-        {
-            var tarefaEditar = BuscarPorId(tarefa.Id);
-            tarefaEditar.Titulo = tarefa.Titulo;
-            tarefaEditar.Descricao = tarefa.Descricao;
-            tarefaEditar.DataInicio = tarefa.DataInicio;
-            tarefaEditar.DataFimPrevista = tarefa.DataFimPrevista;
-            tarefaEditar.Responsavel = tarefa.Responsavel;
-        }
         internal static bool VerificarId(int id)
         {
             return _tarefas.Any(x => x.Id == id);
@@ -108,7 +122,7 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
             Usuario usuario = UsuarioData.SelecionarUsuario(dados[5]);
             var id = int.Parse(dados[6]);
 
-            var tarefa = AdicionarTarefa(id, titulo, descricao, dataInicio, prioridade, usuario, dataFimPrevista, null);
+            var tarefa = new Tarefas(id, titulo, descricao, dataInicio, prioridade, usuario, dataFimPrevista, null);
             if (dados.Length > 7)
             {
                 var status = (StatusTarefa)Enum.Parse(typeof(StatusTarefa), dados[7]);
@@ -127,9 +141,8 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
                     
                     if (dados.Length > 9)
                     {
-                        List<int> idTarefas = dados[6].Split('/').Select(x => int.Parse(x)).ToList();
-                        tarefa.TarefasRelacionada = BuscarPorId(idTarefas);
-
+                        List<int> idTarefas = dados[9].Split('/').Select(x => int.Parse(x)).ToList();
+                        tarefa.TarefasRelacionada = idTarefas;
                     }
                 }
             }
@@ -145,9 +158,22 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
 
                 foreach (var tarefa in tarefas)
                 {
-                    var linha = $"{tarefa.Id};{tarefa.Titulo};{tarefa.Descricao};{tarefa.DataInicio};{tarefa.DataFimPrevista};{tarefa.Status};{tarefa.Prioridade};{tarefa.DataConclusao};{tarefa.DataCancelamento};{tarefa.Responsavel.Cpf};{string.Join(",", tarefa.TarefasRelacionada.Select(x => x.Id))}";
+                    MessageBox.Show(tarefa.DataConclusao.ToString());
+                    string dataConclusao = tarefa.DataConclusao.Date.ToString("yyyy-MM-dd");
+                    MessageBox.Show(dataConclusao);
+                    if (tarefa.DataConclusao == DateTime.MinValue)
+                    {
+                        dataConclusao = "";
+                        MessageBox.Show($"Dentro do if: {dataConclusao}");
+                    }
+
+                    var linha = $"{tarefa.Titulo},{tarefa.Descricao},{tarefa.DataInicio.Date.ToString("yyyy-MM-dd")},{tarefa.DataFimPrevista.Date.ToString("yyyy-MM-dd")}," +
+                    $"{tarefa.Prioridade},{tarefa.Responsavel.Cpf},{tarefa.Id},{tarefa.Status},{dataConclusao}," +
+                    $"{string.Join("/", tarefa.TarefasRelacionada)}";
+
                     linhas.Add(linha);
                 }
+
 
                 File.AppendAllLines(_FILE_PATH, linhas);
 
@@ -164,5 +190,65 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
         {
             return _tarefas.Where(x => x.Responsavel == usuario).ToList();
         }
+
+        internal static void AprovarTarefa(Tarefas tarefa)
+        {
+            tarefa.Status = StatusTarefa.Concluida;
+            tarefa.DataConclusao = DateTime.Now;
+            AtualizarStatus(tarefa);
+        }
+
+        internal static void CancelarTarefa(Tarefas tarefa)
+        {
+            tarefa.Status = StatusTarefa.Cancelada;
+            AtualizarStatus(tarefa);
+        }
+
+        internal static void AlterarStatus(Tarefas tarefa, StatusTarefa status)
+        {
+            tarefa.Status = status;
+            AtualizarStatus(tarefa);
+        }
+
+        internal static void AtualizarStatus(Tarefas tarefa)
+        {
+            try
+            {
+                string[] linhas = File.ReadAllLines(_FILE_PATH);
+
+                for (int i = 0; i < linhas.Length; i++)
+                {
+                    string[] partes = linhas[i].Split(',');
+
+                    if (partes.Length >= 7 && partes[6] == tarefa.Id.ToString())
+                    {
+                        partes[7] = tarefa.Status.ToString();
+
+                        if (tarefa.Status == StatusTarefa.Concluida)
+                        {
+                            if (partes.Length <= 8)
+                            {
+                                Array.Resize(ref partes, 9);
+                            }
+
+                            partes[8] = tarefa.DataConclusao.Date.ToString("yyyy-MM-dd");
+                        }
+
+                        linhas[i] = string.Join(",", partes);
+                        break;
+                    }
+                }
+
+                File.WriteAllLines(_FILE_PATH, linhas);
+
+                MessageBox.Show("Status da tarefa atualizado com sucesso no arquivo.", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao atualizar o status da tarefa no arquivo: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
     }
 }
