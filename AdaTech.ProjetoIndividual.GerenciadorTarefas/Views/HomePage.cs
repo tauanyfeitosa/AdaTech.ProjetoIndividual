@@ -15,13 +15,6 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views
 {
     internal partial class HomePage : Form
     {
-        private bool _confirmacaoSaidaExibida = false;
-        private Label _lblBemVindo;
-        private Usuario _usuarioLogado;
-        private HomePageController _homePageController;
-        private Panel _painelHomePage;
-        private Button _btnLogout;
-
 
         internal HomePage(Usuario usuario)
         {
@@ -76,37 +69,18 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views
             Controls.Add(_painelHomePage);
         }
 
+        #region Painel Desenvolvedor
         private void CriarPainelDev()
         {
             _painelHomePage.Controls.Clear();
 
-            Button btnVisualizarTarefas = new Button();
             btnVisualizarTarefas.Size = new Size(200, 30);
-            btnVisualizarTarefas.Location = new Point(10, 50);
-            btnVisualizarTarefas.Anchor = AnchorStyles.Right;
-            btnVisualizarTarefas.Text = "Visualizar Tarefas";
-            btnVisualizarTarefas.Click += OnClickVisualizarTarefas;
 
-            Button btnCriarTarefa = new Button();
             btnCriarTarefa.Size = new Size(200, 30);
-            btnCriarTarefa.Location = new Point(10, 90);
-            btnCriarTarefa.Anchor = AnchorStyles.Right;
-            btnCriarTarefa.Text = "Criar Tarefa";
-            btnCriarTarefa.Click += OnClickCriarTarefa;
 
-            Button btnVisualizarUsuarios = new Button();
             btnVisualizarUsuarios.Size = new Size(200, 30);
-            btnVisualizarUsuarios.Location = new Point(10, 130);
-            btnVisualizarUsuarios.Anchor = AnchorStyles.Right;
-            btnVisualizarUsuarios.Text = "Visualizar Equipe";
-            btnVisualizarUsuarios.Click += OnClickVisualizarUsuarios;
 
-            Button btnAlterarSenha = new Button();
             btnAlterarSenha.Size = new Size(300, 30);
-            btnAlterarSenha.Location = new Point(10, 10);
-            btnAlterarSenha.Anchor = AnchorStyles.Right;
-            btnAlterarSenha.Text = "Primeiro acesso? Alterar Senha";
-            btnAlterarSenha.Click += OnClickAlterarSenha;
 
             _painelHomePage.Controls.Add(btnVisualizarTarefas);
             _painelHomePage.Controls.Add(btnAlterarSenha);
@@ -114,45 +88,22 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views
             _painelHomePage.Controls.Add(btnVisualizarUsuarios);
 
         }
+        #endregion
 
+        #region Painel Tech Leader
         private void CriarPainelTechL()
         {
             _painelHomePage.Controls.Clear();
 
-            Button btnCriarTarefa = new Button();
             btnCriarTarefa.Size = new Size(200, 30);
-            btnCriarTarefa.Location = new Point(10, 10);
-            btnCriarTarefa.Anchor = AnchorStyles.Right;
-            btnCriarTarefa.Text = "Criar Tarefa";
-            btnCriarTarefa.Click += OnClickCriarTarefa;
 
-            Button btnVisualizarTarefas = new Button();
             btnVisualizarTarefas.Size = new Size(200, 30);
-            btnVisualizarTarefas.Location = new Point(10, 50);
-            btnVisualizarTarefas.Anchor = AnchorStyles.Right;
-            btnVisualizarTarefas.Text = "Visualizar Tarefas";
-            btnVisualizarTarefas.Click += OnClickVisualizarTarefas;
 
-            Button btnVisualizarUsuarios = new Button();
             btnVisualizarUsuarios.Size = new Size(200, 30);
-            btnVisualizarUsuarios.Location = new Point(10, 90);
-            btnVisualizarUsuarios.Anchor = AnchorStyles.Right;
-            btnVisualizarUsuarios.Text = "Visualizar Equipe";
-            btnVisualizarUsuarios.Click += OnClickVisualizarUsuarios;
 
-            Button btnCadastrarDev = new Button();
             btnCadastrarDev.Size = new Size(200, 30);
-            btnCadastrarDev.Location = new Point(10, 130);
-            btnCadastrarDev.Anchor = AnchorStyles.Right;
-            btnCadastrarDev.Text = "Cadastrar Desenvolvedor";
-            btnCadastrarDev.Click += OnClickCadastrarDev;
 
-            Button btnAlterarSenha = new Button();
             btnAlterarSenha.Size = new Size(300, 30);
-            btnAlterarSenha.Location = new Point(10, 170);
-            btnAlterarSenha.Anchor = AnchorStyles.Right;
-            btnAlterarSenha.Text = "Primeiro acesso? Alterar Senha";
-            btnAlterarSenha.Click += OnClickAlterarSenha;
 
             _painelHomePage.Controls.Add(btnCriarTarefa);
             _painelHomePage.Controls.Add(btnVisualizarTarefas);
@@ -161,7 +112,33 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views
             _painelHomePage.Controls.Add(btnAlterarSenha);
 
         }
+        #endregion
 
+        #region Painel Administrador
+        private void CriarPainelAdm()
+        {
+            _painelHomePage.Controls.Clear();
+
+            btnVisualizarTarefas.Size = new Size(200, 30);
+
+            btnVisualizarUsuarios.Size = new Size(200, 30);
+
+            btnAdicionarProjeto.Size = new Size(200, 30);
+
+            btnVisualizarProjeto.Size = new Size(200, 30);
+
+            btnCadastrarTechLeader.Size = new Size(200, 30);
+
+            _painelHomePage.Controls.Add(btnVisualizarTarefas);
+            _painelHomePage.Controls.Add(btnVisualizarUsuarios);
+            _painelHomePage.Controls.Add(btnAdicionarProjeto);
+            _painelHomePage.Controls.Add(btnVisualizarProjeto);
+            _painelHomePage.Controls.Add(btnCadastrarTechLeader);
+        }
+
+        #endregion
+
+        #region OnClicks
         private void OnClickCriarTarefa(object sender, EventArgs e)
         {
             JanelaCriarTarefa telaCriarTarefa = new JanelaCriarTarefa(_usuarioLogado);
@@ -179,55 +156,6 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views
             JanelaAlterarSenha telaAlterarSenha = new JanelaAlterarSenha(_usuarioLogado);
             telaAlterarSenha.ShowDialog();
         }
-
-        #region Painel Administrador
-        private void CriarPainelAdm()
-        {
-            _painelHomePage.Controls.Clear();
-
-            Button btnVisualizarTarefas = new Button();
-            btnVisualizarTarefas.Size = new Size(200, 30);
-            btnVisualizarTarefas.Location = new Point(10, 10);
-            btnVisualizarTarefas.Anchor = AnchorStyles.Right;
-            btnVisualizarTarefas.Text = "Visualizar Tarefas";
-            btnVisualizarTarefas.Click += OnClickVisualizarTarefas;
-
-            Button btnVisualizarUsuarios = new Button();
-            btnVisualizarUsuarios.Size = new Size(200, 30);
-            btnVisualizarUsuarios.Location = new Point(10, 50);
-            btnVisualizarUsuarios.Anchor = AnchorStyles.Right;
-            btnVisualizarUsuarios.Text = "Visualizar Usuários";
-            btnVisualizarUsuarios.Click += OnClickVisualizarUsuarios;
-
-            Button btnAdicionarProjeto = new Button();
-            btnAdicionarProjeto.Size = new Size(200, 30);
-            btnAdicionarProjeto.Location = new Point(10, 90);
-            btnAdicionarProjeto.Anchor = AnchorStyles.Right;
-            btnAdicionarProjeto.Text = "Adicionar Projeto";
-            btnAdicionarProjeto.Click += OnClickAdicionarProjetos;
-
-            Button btnVisualizarProjeto = new Button();
-            btnVisualizarProjeto.Size = new Size(200, 30);
-            btnVisualizarProjeto.Location = new Point(10, 130);
-            btnVisualizarProjeto.Anchor = AnchorStyles.Right;
-            btnVisualizarProjeto.Text = "Visualizar Projetos";
-            btnVisualizarProjeto.Click += OnClickVisualizarProjetos;
-
-            Button btnCadastrarTechLeader = new Button();
-            btnCadastrarTechLeader.Size = new Size(200, 30);
-            btnCadastrarTechLeader.Location = new Point(10, 170);
-            btnCadastrarTechLeader.Anchor = AnchorStyles.Right;
-            btnCadastrarTechLeader.Text = "Cadastrar Tech Leader";
-            btnCadastrarTechLeader.Click += OnClickCadastrarTechLeader;
-
-            _painelHomePage.Controls.Add(btnVisualizarTarefas);
-            _painelHomePage.Controls.Add(btnVisualizarUsuarios);
-            _painelHomePage.Controls.Add(btnAdicionarProjeto);
-            _painelHomePage.Controls.Add(btnVisualizarProjeto);
-            _painelHomePage.Controls.Add(btnCadastrarTechLeader);
-        }
-
-        #endregion
 
         private void OnClickVisualizarTarefas(object sender, EventArgs e)
         {
@@ -257,7 +185,7 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views
         {
             JanelaCadastrarTechLeader telaCadastrarTechLeader = new JanelaCadastrarTechLeader();
             telaCadastrarTechLeader.ShowDialog();
-        } 
+        }
 
         private void OnClickLogout(object sender, EventArgs e)
         {
@@ -266,6 +194,7 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views
             telaLogin.Show();
 
             this.Close();
-        }
+        } 
+        #endregion
     }
 }
