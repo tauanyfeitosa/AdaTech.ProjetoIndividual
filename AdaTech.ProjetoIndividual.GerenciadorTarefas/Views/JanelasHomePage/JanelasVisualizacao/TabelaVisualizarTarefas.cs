@@ -68,6 +68,9 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views.JanelasHomePage
                             }
                         }
                     }
+                } else
+                {
+                    tarefas = TarefaData.Listar();
                 }
 
                 if (tarefas.Count > 0)

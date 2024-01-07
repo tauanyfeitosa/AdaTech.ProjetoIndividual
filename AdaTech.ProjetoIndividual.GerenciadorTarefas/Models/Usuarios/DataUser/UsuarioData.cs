@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusiness;
 using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.ProjetosBusiness;
 
 
@@ -33,76 +30,6 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser
             _administrador = LerAdmTxt();
         }
 
-        internal static void IncluirUsuario(Usuario usuario)
-        {
-            if (usuario is Administrador)
-            {
-                _administrador.Add((Administrador)usuario);
-            }
-            else if (usuario is TechLeader)
-            {
-                _techLeaders.Add((TechLeader)usuario);
-            }
-            else if (usuario is Desenvolvedor)
-            {
-                _desenvolvedores.Add((Desenvolvedor)usuario);
-            }
-        }
-
-        internal static void IncluirUsuario(List<Usuario> usuarios)
-        {
-            foreach (Usuario usuario in usuarios)
-            {
-                if (usuario is Administrador)
-                {
-                    _administrador.Add((Administrador)usuario);
-                }
-                else if (usuario is TechLeader)
-                {
-                    _techLeaders.Add((TechLeader)usuario);
-                }
-                else if (usuario is Desenvolvedor)
-                {
-                    _desenvolvedores.Add((Desenvolvedor)usuario);
-                }
-            }
-        }
-
-        internal static void RemoverUsuario(Usuario usuario)
-        {
-            if (usuario is Administrador)
-            {
-                _administrador.Remove((Administrador)usuario);
-            }
-            else if (usuario is TechLeader)
-            {
-                _techLeaders.Remove((TechLeader)usuario);
-            }
-            else if (usuario is Desenvolvedor)
-            {
-                _desenvolvedores.Remove((Desenvolvedor)usuario);
-            }
-        }
-
-        internal static void RemoverUsuario(List<Usuario> usuarios)
-        {
-            foreach (Usuario usuario in usuarios)
-            {
-                if (usuario is Administrador)
-                {
-                    _administrador.Remove((Administrador)usuario);
-                }
-                else if (usuario is TechLeader)
-                {
-                    _techLeaders.Remove((TechLeader)usuario);
-                }
-                else if (usuario is Desenvolvedor)
-                {
-                    _desenvolvedores.Remove((Desenvolvedor)usuario);
-                }
-            }
-        }
-
         internal static Usuario SelecionarUsuario(string cpf)
         {
             Usuario usuario = null;
@@ -126,19 +53,6 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser
             }
 
             return usuario;
-        }
-
-        internal static TechLeader SelecionarTechLeader (string cpf)
-        {
-            TechLeader techLeader = null;
-
-            techLeader = _techLeaders.FirstOrDefault(x => x.Cpf == cpf);
-            if (techLeader != null)
-            {
-                return techLeader;
-            }
-
-            return techLeader;
         }
 
         internal static bool VerificarUsuarioExistenteCpf(string cpf)
@@ -426,21 +340,6 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser
             }
         }
 
-        internal static void SalvarAdministradorTxt(List<Administrador> administradores)
-        {
-            try
-            {
-                SalvarUsuariosTxt<Administrador>(administradores, _FILE_PATH_ADMINISTRADOR);
-
-                _administrador = LerAdmTxt();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao adicionar as alterações no arquivo: {ex.Message}");
-            }
-        }
-
         internal static void SalvarDesenvolvedoresTxt(List<Desenvolvedor> desenvolvedores)
         {
             try
@@ -476,10 +375,8 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser
 
         internal static void AtualizarSenha(Usuario usuario, string novaSenha)
         {
-            // Atualizar a senha no objeto de usuário
             usuario.Senha = novaSenha;
 
-            // Chamar o método para atualizar a senha no arquivo de texto
             AtualizarSenhaNoArquivo(usuario, novaSenha);
         }
 
@@ -530,8 +427,6 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser
 
             throw new ArgumentException("Tipo de usuário não reconhecido.");
         }
-
-
     }
 }
 

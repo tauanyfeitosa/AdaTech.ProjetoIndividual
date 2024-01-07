@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.ProjetosBusiness;
-using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios;
 
 namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusiness
 {

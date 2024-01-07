@@ -1,9 +1,4 @@
 ﻿using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.ProjetosBusiness;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios
 {
@@ -19,7 +14,7 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios
         internal string Email { get => _email; set => _email = value; }
         internal string Senha { get => _senha; set => _senha = value; }
         internal string Cpf { get => _cpf; set => _cpf = value; }
-        internal bool Ativo { get => _ativo; set => _ativo = value; }
+        public bool Ativo { get => _ativo; set => _ativo = value; }
 
         public string Cargo
         {

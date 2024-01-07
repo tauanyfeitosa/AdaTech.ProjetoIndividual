@@ -2,11 +2,7 @@
 using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.ProjetosBusiness;
-using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios.DataUser;
 
 namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business
 {
@@ -89,66 +85,6 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business
             _projeto = (usuario is TechLeader techLeader) ? techLeader.Projeto :
                        (usuario is Desenvolvedor desenvolvedor) ? desenvolvedor.Projeto :
                         null;
-        }
-
-        internal void EditarTarefa(string titulo = null, string descricao = null, DateTime? dataInicio = null, PrioridadeTarefa? prioridade = null, string observacoes = null, Usuario usuario = null, DateTime? fim = null, List<int> tarefasRelacionada = null, StatusTarefa? status = null)
-        {
-            if (titulo != null)
-            {
-                _titulo = titulo;
-            }
-
-            if (descricao != null)
-            {
-                _descricao = descricao;
-            }
-
-            if (dataInicio.HasValue)
-            {
-                _dataInicio = dataInicio.Value;
-            }
-
-            if (fim.HasValue)
-            {
-                _dataFimPrevista = fim.Value;
-            }
-
-            if (status.HasValue)
-            {
-                _status = status.Value;
-            }
-
-            if (prioridade.HasValue)
-            {
-                _prioridade = prioridade.Value;
-            }
-
-            if (usuario != null)
-            {
-                _usuario = usuario;
-            }
-
-            if (tarefasRelacionada != null)
-            {
-                _tarefasRelacionada = tarefasRelacionada;
-            }
-        }
-
-        internal void ConcluirTarefa()
-        {
-            _status = StatusTarefa.Concluida;
-            _dataConclusao = DateTime.Now;
-        }
-
-        internal void CancelarTarefa()
-        {
-            _status = StatusTarefa.Cancelada;
-            _dataCancelamento = DateTime.Now;
-        }
-
-        internal void AdicionarTarefaRelacionada(Tarefas tarefa)
-        {
-            _tarefasRelacionada.Add(tarefa.Id);
         }
 
         internal int GerarId()

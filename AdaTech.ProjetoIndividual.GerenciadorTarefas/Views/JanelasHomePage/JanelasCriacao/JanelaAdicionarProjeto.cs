@@ -89,7 +89,7 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views.JanelasHomePage
         {
             txtNomeProjeto.Text = string.Empty;
             txtDescricaoProjeto.Text = string.Empty;
-            dateTimePickerDataInicio.Value = DateTime.Now;
+            dateTimePickerDataInicio.Value = DateTime.Now.Date;
         }
     }
 }

@@ -1,9 +1,4 @@
-﻿using AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Usuarios;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.ProjetosBusiness
 {
@@ -29,18 +24,6 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.ProjetosB
             _dataInicio = dataInicio;
             _statusProjeto = StatusProjeto.EmAndamento;
             _codigoProjeto = GerarCodigoProjeto();
-        }
-
-        internal void ConcluirProjeto()
-        {
-            _statusProjeto = StatusProjeto.Concluido;
-            _dataTermino = DateTime.Now;
-        }
-
-        internal void CancelarProjeto()
-        {
-            _statusProjeto = StatusProjeto.Cancelado;
-            _dataTermino = DateTime.Now;
         }
 
         internal string GerarCodigoProjeto()

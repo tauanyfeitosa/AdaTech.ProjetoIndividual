@@ -1,4 +1,4 @@
-﻿111222,Juliana Oliveira,11122233344,juliana.oliveira@gmail.com,Salus,True
+123456,Juliana Oliveira,11122233344,juliana.oliveira@gmail.com,Salus,True
 333444,Ricardo Santos,55566677788,ricardo.santos@gmail.com,Salus,True
 555666,Patrícia Lima,99900011122,patricia.lima@gmail.com,Salus,True
 777888,Felipe Silva,33344455566,felipe.silva@gmail.com,Salus,True
@@ -53,3 +53,4 @@
 555666,Larissa Lima,66666677777,larissa.lima@gmail.com,SisVet,False
 777888,Pedro Santos,88888899999,pedro.santos@gmail.com,SisVet,True
 999000,Ana Oliveira,11111122222,ana.oliveira@gmail.com,SisVet,False
+123456,Evandro,65446131389,evandro@gmail.com,SisCovid,True

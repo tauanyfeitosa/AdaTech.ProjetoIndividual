@@ -23,14 +23,9 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
             _tarefas = LerTarefasTxt();
         }
 
-        internal static void AdicionarTarefa(int id, string titulo, string descricao, DateTime dataInicio, PrioridadeTarefa prioridade, Usuario usuario, DateTime fim, List<int> idTarefas)
+        internal static List<Tarefas> Listar()
         {
-            List<int> tarefasRelacionadas = idTarefas;
-            var tarefa = new Tarefas(id, titulo, descricao, dataInicio, prioridade, usuario, fim, tarefasRelacionadas);
-            _tarefas.Add(tarefa);
-            List<Tarefas> lista = new List<Tarefas>();
-            lista.Add(tarefa);
-            SalvarTarefasTxt(lista);
+            return _tarefas;
         }
 
         internal static bool AdicionarTarefa(string titulo, string descricao, DateTime dataInicio, PrioridadeTarefa prioridade, Usuario usuario, DateTime fim, List<int> idTarefas)
@@ -51,11 +46,6 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
             }
         }
 
-        internal static List<Tarefas> Listar()
-        {
-            return _tarefas;
-        }
-
         internal static List<Tarefas> Listar(Projetos projeto)
         {
             return _tarefas.Where(x => x.Projeto == projeto).ToList();
@@ -64,11 +54,6 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
         internal static List<Tarefas> ListarTarefasDev(Desenvolvedor dev)
         {
             return _tarefas.Where(x => x.Responsavel == dev).ToList();
-        }
-
-        internal static Tarefas BuscarPorId(int id)
-        {
-            return _tarefas.FirstOrDefault(x => x != null && x.Id == id);
         }
 
 
@@ -85,11 +70,6 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
         internal static bool VerificarId(int id)
         {
             return _tarefas.Any(x => x.Id == id);
-        }
-
-        internal static Tarefas ObterPorId(int id)
-        {
-            return _tarefas.FirstOrDefault(x => x.Id == id);
         }
 
         internal static List<Tarefas> LerTarefasTxt()
@@ -158,13 +138,10 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
 
                 foreach (var tarefa in tarefas)
                 {
-                    MessageBox.Show(tarefa.DataConclusao.ToString());
                     string dataConclusao = tarefa.DataConclusao.Date.ToString("yyyy-MM-dd");
-                    MessageBox.Show(dataConclusao);
                     if (tarefa.DataConclusao == DateTime.MinValue)
                     {
                         dataConclusao = "";
-                        MessageBox.Show($"Dentro do if: {dataConclusao}");
                     }
 
                     var linha = $"{tarefa.Titulo},{tarefa.Descricao},{tarefa.DataInicio.Date.ToString("yyyy-MM-dd")},{tarefa.DataFimPrevista.Date.ToString("yyyy-MM-dd")}," +
@@ -248,7 +225,6 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Models.Business.DataBusin
                 MessageBox.Show($"Erro ao atualizar o status da tarefa no arquivo: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
     }
 }
