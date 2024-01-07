@@ -10,82 +10,11 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views.JanelasHomePage
 {
     public partial class JanelaCadastrarDev : Form
     {
-        private TextBox txtSenha;
-        private TextBox txtNome;
-        private TextBox txtCpf;
-        private TextBox txtEmail;
-        private ComboBox cmbProjetos;
-        private Button btnCadastrarDev;
 
         public JanelaCadastrarDev()
         {
             InitializeComponent();
-            ConfigurarControles();
             CarregarProjetos();
-        }
-
-        private void ConfigurarControles()
-        {
-            txtSenha = new TextBox();
-            txtSenha.Location = new System.Drawing.Point(20, 20);
-            txtSenha.Size = new System.Drawing.Size(200, 25);
-            Controls.Add(txtSenha);
-
-            Label lblSenha = new Label();
-            lblSenha.Text = "Senha:";
-            lblSenha.Location = new System.Drawing.Point(230, 20);
-            lblSenha.AutoSize = true;
-            Controls.Add(lblSenha);
-
-            txtNome = new TextBox();
-            txtNome.Location = new System.Drawing.Point(20, 60);
-            txtNome.Size = new System.Drawing.Size(200, 25);
-            Controls.Add(txtNome);
-
-            Label lblNome = new Label();
-            lblNome.Text = "Nome:";
-            lblNome.Location = new System.Drawing.Point(230, 60);
-            lblNome.AutoSize = true;
-            Controls.Add(lblNome);
-
-            txtCpf = new TextBox();
-            txtCpf.Location = new System.Drawing.Point(20, 100);
-            txtCpf.Size = new System.Drawing.Size(200, 25);
-            Controls.Add(txtCpf);
-
-            Label lblCpf = new Label();
-            lblCpf.Text = "CPF:";
-            lblCpf.Location = new System.Drawing.Point(230, 100);
-            lblCpf.AutoSize = true;
-            Controls.Add(lblCpf);
-
-            txtEmail = new TextBox();
-            txtEmail.Location = new System.Drawing.Point(20, 140);
-            txtEmail.Size = new System.Drawing.Size(200, 25);
-            Controls.Add(txtEmail);
-
-            Label lblEmail = new Label();
-            lblEmail.Text = "E-mail:";
-            lblEmail.Location = new System.Drawing.Point(230, 140);
-            lblEmail.AutoSize = true;
-            Controls.Add(lblEmail);
-
-            cmbProjetos = new ComboBox();
-            cmbProjetos.Location = new System.Drawing.Point(20, 180);
-            cmbProjetos.Size = new System.Drawing.Size(200, 25);
-            Controls.Add(cmbProjetos);
-
-            Label lblProjetos = new Label();
-            lblProjetos.Text = "Projeto:";
-            lblProjetos.Location = new System.Drawing.Point(230, 180);
-            lblProjetos.AutoSize = true;
-            Controls.Add(lblProjetos);
-
-            btnCadastrarDev = new Button();
-            btnCadastrarDev.Text = "Cadastrar Desenvolvedor";
-            btnCadastrarDev.Location = new System.Drawing.Point(20, 220);
-            btnCadastrarDev.Click += btnCadastrarDev_Click;
-            Controls.Add(btnCadastrarDev);
         }
 
         private void CarregarProjetos()

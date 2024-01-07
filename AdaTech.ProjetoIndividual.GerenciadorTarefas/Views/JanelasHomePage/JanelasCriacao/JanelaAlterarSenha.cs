@@ -7,62 +7,10 @@ namespace AdaTech.ProjetoIndividual.GerenciadorTarefas.Views.JanelasHomePage
 {
     internal partial class JanelaAlterarSenha : Form
     {
-        private TextBox txtSenhaAntiga;
-        private TextBox txtNovaSenha;
-        private TextBox txtConfirmarSenha;
-        private Button btnAlterarSenha;
-        private Usuario usuario;
-
         internal JanelaAlterarSenha(Usuario usuario)
         {
             this.usuario = usuario;
             InitializeComponent();
-            ConfigurarControles();
-        }
-
-        private void ConfigurarControles()
-        {
-            txtSenhaAntiga = new TextBox();
-            txtSenhaAntiga.Location = new System.Drawing.Point(20, 20);
-            txtSenhaAntiga.Size = new System.Drawing.Size(200, 25);
-            txtSenhaAntiga.PasswordChar = '*';
-            Controls.Add(txtSenhaAntiga);
-
-            Label lblSenhaAntiga = new Label();
-            lblSenhaAntiga.Text = "Senha Antiga:";
-            lblSenhaAntiga.Location = new System.Drawing.Point(230, 20);
-            lblSenhaAntiga.AutoSize = true;
-            Controls.Add(lblSenhaAntiga);
-
-            txtNovaSenha = new TextBox();
-            txtNovaSenha.Location = new System.Drawing.Point(20, 60);
-            txtNovaSenha.Size = new System.Drawing.Size(200, 25);
-            txtNovaSenha.PasswordChar = '*';
-            Controls.Add(txtNovaSenha);
-
-            Label lblNovaSenha = new Label();
-            lblNovaSenha.Text = "Nova Senha:";
-            lblNovaSenha.Location = new System.Drawing.Point(230, 60);
-            lblNovaSenha.AutoSize = true;
-            Controls.Add(lblNovaSenha);
-
-            txtConfirmarSenha = new TextBox();
-            txtConfirmarSenha.Location = new System.Drawing.Point(20, 100);
-            txtConfirmarSenha.Size = new System.Drawing.Size(200, 25);
-            txtConfirmarSenha.PasswordChar = '*';
-            Controls.Add(txtConfirmarSenha);
-
-            Label lblConfirmarSenha = new Label();
-            lblConfirmarSenha.Text = "Confirmar Senha:";
-            lblConfirmarSenha.Location = new System.Drawing.Point(230, 100);
-            lblConfirmarSenha.AutoSize = true;
-            Controls.Add(lblConfirmarSenha);
-
-            btnAlterarSenha = new Button();
-            btnAlterarSenha.Text = "Alterar Senha";
-            btnAlterarSenha.Location = new System.Drawing.Point(20, 120);
-            btnAlterarSenha.Click += btnAlterarSenha_Click;
-            Controls.Add(btnAlterarSenha);
         }
 
         private void btnAlterarSenha_Click(object sender, EventArgs e)

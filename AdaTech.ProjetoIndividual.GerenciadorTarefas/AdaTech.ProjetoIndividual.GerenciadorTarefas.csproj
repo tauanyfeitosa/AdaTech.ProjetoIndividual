@@ -143,6 +143,18 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\JanelasHomePage\JanelasCriacao\CriarUsuarios\JanelaCadastrarDev.resx">
+      <DependentUpon>JanelaCadastrarDev.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\JanelasHomePage\JanelasCriacao\CriarUsuarios\JanelaCadastrarTechLeader.resx">
+      <DependentUpon>JanelaCadastrarTechLeader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\JanelasHomePage\JanelasCriacao\JanelaAdicionarProjeto.resx">
+      <DependentUpon>JanelaAdicionarProjeto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\JanelasHomePage\JanelasCriacao\JanelaAlterarSenha.resx">
+      <DependentUpon>JanelaAlterarSenha.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

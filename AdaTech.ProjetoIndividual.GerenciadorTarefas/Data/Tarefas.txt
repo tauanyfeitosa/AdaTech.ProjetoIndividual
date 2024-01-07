@@ -8,3 +8,4 @@ PlanejarProximoSprint,Preparar roadmap para a próxima sprint,2022-05-01,2022-05
 AtualizarDocumentacao,Atualizar documentação do projeto,2022-05-10,2022-05-15,Baixa,33344455566,8,Pendente,null,5
 Refatorar Codigo,refatorar o código conforme boas práticas,2024-01-03,2024-01-13,Alta,11122233344,821,Concluida,0001-01-01,1/4/6
 modificar acessos,criar um sistema de permissões,2024-01-06,2024-01-12,Media,11122233344,401,Pendente,,821
+correção de bugs,corrigir o bug da tarefa 5,2024-01-04,2024-01-19,Media,11122233344,877,Pendente,,2/5
